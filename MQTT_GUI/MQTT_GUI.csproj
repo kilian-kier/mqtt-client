@@ -59,6 +59,7 @@
           <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Include="MVVM\Views\PublishView.xaml" />
+        <Page Include="Theme\ComboBoxTheme.xaml" />
         <Page Include="Theme\ConnectButtonTheme.xaml" />
         <Page Include="Theme\ErrorMessagesTheme.xaml" />
         <Page Include="Theme\MenuButtonTheme.xaml" />
@@ -72,7 +73,6 @@
         <Compile Include="MQTT\messages\PingReq.cs" />
         <Compile Include="MQTT\messages\Publish.cs" />
         <Compile Include="MQTT\messages\Subscribe.cs" />
-        <Compile Include="MQTT\models\Flags.cs" />
         <Compile Include="MQTT\models\MessageType.cs" />
         <Compile Include="MQTT\models\MQTT.cs" />
         <Compile Include="MQTT\MQTTClient.cs" />

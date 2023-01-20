@@ -23,7 +23,7 @@ namespace MQTT_GUI.MQTT
         {
             _mqttClient = client;
             var pingTimer = new Timer();
-            pingTimer.Interval = 55 * 1000; // every 55 seconds
+            pingTimer.Interval = 2 * 1000; // every 55 seconds
             pingTimer.Elapsed += SendPingRequest;
             pingTimer.AutoReset = true;
             pingTimer.Enabled = true;

@@ -7,9 +7,15 @@ namespace MQTT_GUI.MQTT.messages
 {
     public class Publish : models.MQTT
     {
-        public Publish(string topic, string message)
+        public enum QOS : byte
         {
-            ControlHeader = (byte) MessageType.Publish;
+            ExactlyOnce = 4,
+            AtLeastOnce = 2,
+            AtMostOnce = 0
+        }
+        public Publish(string topic, string message, QOS qos)
+        {
+            ControlHeader = (byte) (MessageType.Publish + (byte) qos);
             RemainingLength = new[] {(byte) (2 + topic.Length + message.Length)};
             var headerLength = BitConverter.GetBytes((short) topic.Length);
 

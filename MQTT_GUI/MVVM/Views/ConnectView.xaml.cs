@@ -75,6 +75,13 @@ namespace MQTT_GUI.MVVM.Views
             var dataContext = DataContext;
             DataContext = null;
             DataContext = dataContext;
+            foreach (var window in Application.Current.Windows)
+            {
+                if (!(window is MainWindow mainWindow)) return;
+                mainWindow.PublishMenuButton.Visibility = Visibility.Hidden;
+                mainWindow.SubscribeMenuButton.Visibility = Visibility.Hidden;
+                mainWindow.SubscriptionsMenuButton.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

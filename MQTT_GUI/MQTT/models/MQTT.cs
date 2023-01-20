@@ -28,6 +28,14 @@ namespace MQTT_GUI.MQTT.models
             ControlHeader = data[0];
             const byte continuation = 0b10000000;
             var remainingLength = 1;
+            if (data.Length == 2)
+            {
+                RemainingLength = new[] {data[1]};
+                Header = Array.Empty<byte>();
+                Payload = Array.Empty<byte>();
+                return;
+            }
+            
             for (var i = 2; i < 5; i++)
             {
                 var check = data[i] & continuation;

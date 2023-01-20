@@ -41,7 +41,7 @@ namespace MQTT_GUI.MQTT
             return true;
         }
 
-        public MQTTClient(string ipAddress, int port, string clientId)
+        /*public MQTTClient(string ipAddress, int port, string clientId)
         {
             _ip = ipAddress;
             _port = port;
@@ -88,7 +88,7 @@ namespace MQTT_GUI.MQTT
                 var msg = Encoding.ASCII.GetString(subscribed.Payload, 0, subscribed.Payload.Length);
                 Console.Out.WriteLine(topic + ": " + msg);
             }
-        }
+        }*/
 
         public void SendObject(models.MQTT command)
         {

@@ -3,13 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
              mc:Ignorable="d"
              Width="720"
              Height="600"
              Background="Transparent">
+    
+    <UserControl.DataContext>
+        <viewModel:PublishViewModel/>
+    </UserControl.DataContext>
+    
     <StackPanel>
-        <TextBox Margin="0 100 0 20"
-                 Style="{StaticResource TopicInput}"/>
-        <TextBox Style="{StaticResource MessagesInput}"/>
+        <TextBox Margin="0 50 0 20"
+                 Style="{StaticResource TopicInput}"
+                 x:Name="TopicBox"/>
+        <TextBox Style="{StaticResource MessagesInput}"
+                 x:Name="MessageBox"/>
+        <Grid Width="260"
+              Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       Text="Quality of Service"
+                       Foreground="White"
+                       FontSize="12"
+                       Margin="5 0 0 5"/>
+            
+            <ComboBox Grid.Column="0"
+                      Grid.Row="1"
+                      Width="120"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      IsReadOnly="True"
+                      SelectedItem="{Binding SelectedQoS}"
+                      ItemsSource="{Binding QoS}"
+                      x:Name="QoSBox"
+                      Style="{StaticResource QualityOfService}">
+            </ComboBox>
+            
+            <Button Grid.Column="1"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="#4e74df"
+                    Content="Publish"
+                    Click="ButtonPublish"
+                    Style="{StaticResource ConnectButton}"></Button>
+        </Grid>
     </StackPanel>
 </UserControl>
