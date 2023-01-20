@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="MQTT_GUI.MVVM.Views.Connect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
+             mc:Ignorable="d"
+             Width="720"
+             Height="600"
+             Background="Transparent">
+    
+    <UserControl.DataContext>
+        <viewModel:ConnectViewModel/>
+    </UserControl.DataContext>
+    
+    <StackPanel>
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Width="350"
+              Margin="50 100 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Broker: "
+                       Grid.Column="0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       FontSize="14"/>
+            <TextBlock Text="{Binding ConnectedBroker}"
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="0 0 25 0"
+                       Padding="0"
+                       Foreground="White"
+                       FontSize="14"/>
+            <Button Content="Disconnect"
+                    Grid.Column="2"
+                    Width="100"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Click="ButtonDisconnect"
+                    IsEnabled="{Binding ButtonEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource DisconnectButton }" />
+        </Grid>
+        <Separator Margin="50"/>
+        <TextBlock Text="MQTT Broker"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Foreground="White"
+                   FontSize="18" />
+        <Grid Width="200"
+              Height="90"
+              Margin="0 20 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Top"
+                     x:Name="BrokerIp"
+                     Text="10.10.30.46"
+                     KeyUp="ButtonConnectEnter"
+                     Style="{StaticResource IpInput}" />
+            <TextBox Grid.Row="1"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Bottom"
+                     x:Name="BrokerPort"
+                     Text="1883"
+                     KeyUp="ButtonConnectEnter"
+                     Style="{StaticResource PortInput}" />
+        </Grid>
+        <Button Content="Connect"
+                Width="100"
+                Margin="0, 25, 0, 0"
+                Click="ButtonConnect"
+                Style="{StaticResource ConnectButton}" />
+        <TextBox VerticalAlignment="Top"
+                 HorizontalAlignment="Center"
+                 Visibility="Hidden"
+                 x:Name="Errors"
+                 Margin="0, 35, 0, 0"
+                 Style="{StaticResource ErrorMessages}" />
+
+    </StackPanel>
+</UserControl>
