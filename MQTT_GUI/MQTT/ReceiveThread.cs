@@ -12,30 +12,35 @@ namespace MQTT_GUI.MQTT
 {
     public class ReceiveThread
     {
-        private const int Timeout = 1000;
+        private const int Timeout = 5000;
         private readonly MQTTClient _mqttClient;
-        private Queue<models.MQTT> _connAckQueue = new Queue<models.MQTT>();
-        private Queue<models.MQTT> _subAckQueue = new Queue<models.MQTT>();
-        private Queue<models.MQTT> _unsubAckQueue = new Queue<models.MQTT>();
-        private Queue<models.MQTT> _pingRespQueue = new Queue<models.MQTT>();
-        public Queue<models.MQTT> SubQueue = new Queue<models.MQTT>();
+        private readonly Queue<models.MQTT> _connAckQueue = new Queue<models.MQTT>();
+        private readonly Queue<models.MQTT> _pubRecQueue = new Queue<models.MQTT>();
+        private readonly Queue<models.MQTT> _pubAckQueue = new Queue<models.MQTT>();
+        private readonly Queue<models.MQTT> _subAckQueue = new Queue<models.MQTT>();
+        private readonly Queue<models.MQTT> _unsubAckQueue = new Queue<models.MQTT>();
+        private readonly Queue<models.MQTT> _pingRespQueue = new Queue<models.MQTT>();
+        public readonly Queue<models.MQTT> SubQueue = new Queue<models.MQTT>();
+
         public ReceiveThread(MQTTClient client)
         {
             _mqttClient = client;
             var pingTimer = new Timer();
-            pingTimer.Interval = 2 * 1000; // every 55 seconds
+            pingTimer.Interval = 55 * 1000; // every 55 seconds
             pingTimer.Elapsed += SendPingRequest;
             pingTimer.AutoReset = true;
             pingTimer.Enabled = true;
-            
+
             new Thread(() =>
             {
                 while (client.TcpClient == null)
                 {
                     Thread.Sleep(10);
                 }
-                
+
                 const int connAck = (byte) MessageType.ConnAck >> 4;
+                const int pubRec = (byte) MessageType.PubRec >> 4;
+                const int pubAck = (byte) MessageType.PubAck >> 4;
                 const int subAck = (byte) MessageType.SubAck >> 4;
                 const int unsubAck = (byte) MessageType.UnsubAck >> 4;
                 const int pingResp = (byte) MessageType.PingResp >> 4;
@@ -46,12 +51,18 @@ namespace MQTT_GUI.MQTT
                     var received = ReceiveObject();
                     foreach (var packet in received)
                     {
-                        var type  = packet.ControlHeader >> 4;
+                        var type = packet.ControlHeader >> 4;
 
                         switch (type)
                         {
                             case connAck:
                                 _connAckQueue.Enqueue(packet);
+                                break;
+                            case pubRec:
+                                _pubRecQueue.Enqueue(packet);
+                                break;
+                            case pubAck:
+                                _pubAckQueue.Enqueue(packet);
                                 break;
                             case subAck:
                                 _subAckQueue.Enqueue(packet);
@@ -70,13 +81,13 @@ namespace MQTT_GUI.MQTT
                 }
             }).Start();
         }
-        
+
         private void SendPingRequest(object source, ElapsedEventArgs e)
         {
             var pingRequest = new PingReq();
             MQTTClient.Client.SendObject(pingRequest);
             _ = GetAck(_pingRespQueue);
-        } 
+        }
 
         private models.MQTT GetAck(Queue<models.MQTT> queue)
         {
@@ -90,25 +101,35 @@ namespace MQTT_GUI.MQTT
                     return null;
                 }
             }
-            
+
             return queue.Dequeue();
         }
-        
+
         public models.MQTT GetConnAck()
         {
             return GetAck(_connAckQueue);
         }
-        
+
+        public models.MQTT GetPubRec()
+        {
+            return GetAck(_pubRecQueue);
+        }
+
+        public models.MQTT GetPubAck()
+        {
+            return GetAck(_pubAckQueue);
+        }
+
         public models.MQTT GetSubAck()
         {
             return GetAck(_subAckQueue);
         }
-        
+
         public models.MQTT GetUnsubAck()
         {
             return GetAck(_unsubAckQueue);
         }
-        
+
         private List<models.MQTT> ReceiveObject()
         {
             if (!_mqttClient.TcpClient.Connected) return null;
@@ -119,6 +140,7 @@ namespace MQTT_GUI.MQTT
             {
                 Thread.Sleep(10);
             }
+
             while (stream.DataAvailable)
             {
                 var numBytesRead = stream.Read(data, 0, data.Length);
@@ -144,6 +166,7 @@ namespace MQTT_GUI.MQTT
                 ret.Add(mqtt);
                 return ret;
             }
+
             while (parsedBytes < bytes.Length)
             {
                 var remaining = bytes.Length - parsedBytes;

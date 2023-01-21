@@ -12,7 +12,7 @@
                  <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                  <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
                  <ResourceDictionary Source="Theme/ConnectButtonTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/ErrorMessagesTheme.xaml"/>
+                 <ResourceDictionary Source="Theme/MessagesTheme.xaml"/>
                  <ResourceDictionary Source="Theme/ComboBoxTheme.xaml"/>
              </ResourceDictionary.MergedDictionaries>
             

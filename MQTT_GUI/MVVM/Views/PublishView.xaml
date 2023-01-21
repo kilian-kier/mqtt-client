@@ -47,17 +47,41 @@
                       SelectedItem="{Binding SelectedQoS}"
                       ItemsSource="{Binding QoS}"
                       x:Name="QoSBox"
-                      Style="{StaticResource QualityOfService}">
-            </ComboBox>
-            
+                      Style="{StaticResource QualityOfService}" />
+
             <Button Grid.Column="1"
                     Grid.Row="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Background="#4e74df"
+                    Background="#2e44af"
                     Content="Publish"
                     Click="ButtonPublish"
-                    Style="{StaticResource ConnectButton}"></Button>
+                    Style="{StaticResource ConnectButton}" />
         </Grid>
+        
+        <TextBox VerticalAlignment="Top"
+                 HorizontalAlignment="Center"
+                 Visibility="Collapsed"
+                 x:Name="PubErr"
+                 Margin="0, 35, 0, 0"
+                 Style="{StaticResource ErrorMessage}" />
+        <TextBox VerticalAlignment="Top"
+                 HorizontalAlignment="Center"
+                 Visibility="Collapsed"
+                 x:Name="PubSuc"
+                 Margin="0, 35, 0, 0"
+                 Style="{StaticResource SuccessMessage}" />
+        <TextBox VerticalAlignment="Top"
+                 HorizontalAlignment="Center"
+                 Visibility="Collapsed"
+                 x:Name="PubInf"
+                 Margin="0, 35, 0, 0"
+                 Style="{StaticResource InfoMessage}" />
+        <ProgressBar Height="20"
+                     Width="100"
+                     IsIndeterminate="True"
+                     Visibility="Collapsed"
+                     Margin="0, 35, 0, 0"
+                     x:Name="ProgressBar"/>
     </StackPanel>
 </UserControl>

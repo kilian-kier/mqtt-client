@@ -85,7 +85,7 @@
                  Visibility="Hidden"
                  x:Name="Errors"
                  Margin="0, 35, 0, 0"
-                 Style="{StaticResource ErrorMessages}" />
+                 Style="{StaticResource ErrorMessage}" />
 
     </StackPanel>
 </UserControl>

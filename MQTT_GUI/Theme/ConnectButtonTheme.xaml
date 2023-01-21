@@ -4,11 +4,13 @@
            x:Key="ConnectButton">
         <Setter Property="Width" Value="80"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Background" Value="#12e364"/>
+        <Setter Property="Background" Value="#12a344"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="CornerRadius" Value="10"/>
             </Style>
         </Style.Resources>
     </Style>
@@ -20,15 +22,16 @@
         <Setter Property="Background" Value="#a32632"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="CornerRadius" Value="10"/>
             </Style>
         </Style.Resources>
         
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="True">
-                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
     </Style>

@@ -61,7 +61,7 @@
         <Page Include="MVVM\Views\PublishView.xaml" />
         <Page Include="Theme\ComboBoxTheme.xaml" />
         <Page Include="Theme\ConnectButtonTheme.xaml" />
-        <Page Include="Theme\ErrorMessagesTheme.xaml" />
+        <Page Include="Theme\MessagesTheme.xaml"/>
         <Page Include="Theme\MenuButtonTheme.xaml" />
         <Page Include="Theme\TextBoxTheme.xaml" />
     </ItemGroup>
