@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
              mc:Ignorable="d"
-             Width="720"
-             Height="600"
+             d:DesignWidth="720"
+             d:DesignHeight="700"
              Background="Transparent">
     
     <UserControl.DataContext>
@@ -14,6 +14,11 @@
     </UserControl.DataContext>
     
     <StackPanel>
+        <TextBlock Text="Publish"
+                   Foreground="White"
+                   FontSize="18"
+                   HorizontalAlignment="Center"
+                   Margin="0 50 0 0"/>
         <TextBox Margin="0 50 0 20"
                  Style="{StaticResource TopicInput}"
                  x:Name="TopicBox"/>
@@ -27,19 +32,20 @@
             </Grid.ColumnDefinitions>
             
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             
             <TextBlock Grid.Column="0"
                        Grid.Row="0"
                        Text="Quality of Service"
                        Foreground="White"
-                       FontSize="12"
-                       Margin="5 0 0 5"/>
+                       FontSize="14"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
             
-            <ComboBox Grid.Column="0"
-                      Grid.Row="1"
+            <ComboBox Grid.Column="1"
+                      Grid.Row="0"
                       Width="120"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
@@ -48,15 +54,22 @@
                       ItemsSource="{Binding QoS}"
                       x:Name="QoSBox"
                       Style="{StaticResource QualityOfService}" />
-
+            
+            <Button Grid.Column="0"
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Content="Clear"
+                    Click="ButtonClear"
+                    Style="{StaticResource DefaultButton}" />
+            
             <Button Grid.Column="1"
                     Grid.Row="1"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="#2e44af"
+                    VerticalAlignment="Bottom"
                     Content="Publish"
                     Click="ButtonPublish"
-                    Style="{StaticResource ConnectButton}" />
+                    Style="{StaticResource DefaultButton}" />
         </Grid>
         
         <TextBox VerticalAlignment="Top"

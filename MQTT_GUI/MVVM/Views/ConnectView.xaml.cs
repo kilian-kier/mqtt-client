@@ -18,24 +18,30 @@ namespace MQTT_GUI.MVVM.Views
         {
             InitializeComponent();
         }
-        
+
         private void ButtonConnect(object sender, RoutedEventArgs e)
         {
-            Errors.Visibility = Visibility.Hidden;
+            Errors.Visibility = Visibility.Collapsed;
+            MainWindowViewModel.ConnectViewModel.ShowProgressBar = Visibility.Visible;
             foreach (var window in Application.Current.Windows)
             {
                 if (!(window is MainWindow mainWindow)) return;
                 mainWindow.PublishMenuButton.Visibility = Visibility.Hidden;
+                mainWindow.TopicsMenuButton.Visibility = Visibility.Hidden;
                 mainWindow.SubscribeMenuButton.Visibility = Visibility.Hidden;
                 mainWindow.SubscriptionsMenuButton.Visibility = Visibility.Hidden;
             }
+
             MainWindowViewModel.ConnectViewModel.ConnectedBroker = "Not connected";
             MainWindowViewModel.ConnectViewModel.ButtonEnabled = false;
             ConnectController.Disconnect();
 
             var brokerIp = BrokerIp.Text;
             var brokerPort = Convert.ToInt32(BrokerPort.Text);
+
             var successfulConnection = ConnectController.Connect(brokerIp, brokerPort, Errors);
+
+            MainWindowViewModel.ConnectViewModel.ShowProgressBar = Visibility.Collapsed;
             if (!successfulConnection)
             {
                 if (Errors.Visibility == Visibility.Visible) return;
@@ -49,6 +55,7 @@ namespace MQTT_GUI.MVVM.Views
                 if (!(window is MainWindow mainWindow)) return;
                 mainWindow.PublishMenuButton.Visibility = Visibility.Visible;
                 mainWindow.PublishMenuButton.IsChecked = true;
+                mainWindow.TopicsMenuButton.Visibility = Visibility.Visible;
                 mainWindow.SubscribeMenuButton.Visibility = Visibility.Visible;
                 mainWindow.SubscriptionsMenuButton.Visibility = Visibility.Visible;
             }
@@ -79,6 +86,7 @@ namespace MQTT_GUI.MVVM.Views
             {
                 if (!(window is MainWindow mainWindow)) return;
                 mainWindow.PublishMenuButton.Visibility = Visibility.Hidden;
+                mainWindow.TopicsMenuButton.Visibility = Visibility.Hidden;
                 mainWindow.SubscribeMenuButton.Visibility = Visibility.Hidden;
                 mainWindow.SubscriptionsMenuButton.Visibility = Visibility.Hidden;
             }

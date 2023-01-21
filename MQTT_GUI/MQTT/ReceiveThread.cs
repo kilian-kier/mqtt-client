@@ -161,7 +161,7 @@ namespace MQTT_GUI.MQTT
             mqtt.FromBytes(bytes);
             var flag = mqtt.ControlHeader >> 4;
             const int publishFlag = (byte) MessageType.Publish >> 4;
-            if ((byte) (flag & publishFlag) != publishFlag)
+            if (flag != publishFlag)
             {
                 ret.Add(mqtt);
                 return ret;

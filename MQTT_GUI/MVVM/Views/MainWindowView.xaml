@@ -6,11 +6,11 @@
         xmlns:viewmodel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MQTT Client"
-        Height="600" Width="920"
+        Height="700" Width="920"
         ResizeMode="CanMinimize">
     
     <Window.DataContext>
-        <viewmodel:MainWindowViewModel></viewmodel:MainWindowViewModel>
+        <viewmodel:MainWindowViewModel />
     </Window.DataContext>
     
     <Border Background="#272535">
@@ -51,11 +51,21 @@
                              x:Name="PublishMenuButton"
                              x:FieldModifier="public"
                              Style="{StaticResource MenuButton}"/>
-                <RadioButton Content="Subscribe"
+                <RadioButton Content="Available Topics"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Visibility="Hidden"
+                             Command="{Binding SubscribeViewCommand}"
+                             x:Name="TopicsMenuButton"
+                             x:FieldModifier="public"
+                             Style="{StaticResource MenuButton}"/>
+                <RadioButton Content="Subscribe / Unsubscribe"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Visibility="Hidden"
+                             Command="{Binding SubscribeViewCommand}"
                              x:Name="SubscribeMenuButton"
                              x:FieldModifier="public"
                              Style="{StaticResource MenuButton}"/>

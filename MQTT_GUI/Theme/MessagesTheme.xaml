@@ -7,7 +7,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
                             Background="#a32632"
-                            Height="40">
+                            Height="30">
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Text}"
                                    VerticalAlignment="Center"
@@ -28,7 +28,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
                             Background="#12a344"
-                            Height="40">
+                            Height="30">
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Text}"
                                    VerticalAlignment="Center"
@@ -49,7 +49,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
                             Background="#2e44af"
-                            Height="40">
+                            Height="30">
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Text}"
                                    VerticalAlignment="Center"

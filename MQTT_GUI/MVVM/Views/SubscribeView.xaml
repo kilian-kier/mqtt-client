@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="MQTT_GUI.MVVM.Views.SubscribeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
+             mc:Ignorable="d"
+             d:DesignWidth="720"
+             d:DesignHeight="700"
+             Background="Transparent">
+
+    <UserControl.DataContext>
+        <viewModel:SubscribeViewModel />
+    </UserControl.DataContext>
+
+    <DockPanel VerticalAlignment="Stretch">
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="Subscribe"
+                       Foreground="White"
+                       FontSize="18"
+                       HorizontalAlignment="Center"
+                       Margin="0 60 0 0" />
+            <TextBox Margin="0 20 0 0"
+                     Style="{StaticResource TopicInput}"
+                     x:Name="TopicBox" />
+
+            <Grid Width="260"
+                  Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Quality of Service"
+                           Foreground="White"
+                           FontSize="14"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center" />
+
+                <ComboBox Grid.Column="1"
+                          Grid.Row="0"
+                          Width="120"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          IsReadOnly="True"
+                          SelectedItem="{Binding SelectedQoS}"
+                          ItemsSource="{Binding QoS}"
+                          x:Name="QoSBox"
+                          Style="{StaticResource QualityOfService}" />
+
+                <Button Grid.Column="0"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Content="Clear"
+                        Click="ButtonClear"
+                        Style="{StaticResource DefaultButton}" />
+
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Content="Subscribe"
+                        Click="ButtonSubscribe"
+                        Style="{StaticResource DefaultButton}" />
+            </Grid>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Bottom">
+            <Separator Margin="50 0 50 50"
+                       VerticalAlignment="Bottom" />
+            <TextBlock Text="Unsubscribe"
+                       Foreground="White"
+                       FontSize="18"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       Margin="0 0 0 20" />
+            <ComboBox Width="300"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom"
+                      Margin="0 0 0 20"
+                      IsReadOnly="True"
+                      Text="No topic has been subscribed yet"
+                      ItemsSource="{Binding Unsubscribable}"
+                      SelectedIndex="0"
+                      x:Name="UnsubscribeBox"
+                      Style="{StaticResource QualityOfService}" />
+            <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0 0 0 170"
+                    Content="Unsubscribe"
+                    Click="ButtonUnsubscribe"
+                    Style="{StaticResource DefaultButton}" />
+        </StackPanel>
+    </DockPanel>
+
+</UserControl>

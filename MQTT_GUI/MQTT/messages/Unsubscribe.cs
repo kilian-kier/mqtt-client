@@ -5,21 +5,14 @@ using MQTT_GUI.MQTT.models;
 
 namespace MQTT_GUI.MQTT.messages
 {
-    public class Subscribe : models.MQTT
+    public class Unsubscribe : models.MQTT
     {
-        public enum QOS : byte
-        {
-            ExactlyOnce = 2,
-            AtLeastOnce = 1,
-            AtMostOnce = 0
-        }
-
         private static short _idCounter = 1;
 
-        public Subscribe(string topic, QOS qos)
+        public Unsubscribe(string topic)
         {
-            ControlHeader = (byte) MessageType.Subscribe + 2;
-            RemainingLength = new[] {(byte) (5 + topic.Length)};
+            ControlHeader = (byte) MessageType.Unsubscribe + 2;
+            RemainingLength = new[] {(byte) (4 + topic.Length)};
             var id = BitConverter.GetBytes(_idCounter);
             _idCounter++;
             var header = new List<byte>
@@ -35,8 +28,7 @@ namespace MQTT_GUI.MQTT.messages
             header.AddRange(Encoding.ASCII.GetBytes(topic));
 
             Header = header.ToArray();
-
-            Payload = new[] {(byte) qos};
+            Payload = Array.Empty<byte>();
         }
     }
 }

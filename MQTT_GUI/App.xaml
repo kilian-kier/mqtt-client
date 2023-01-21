@@ -11,7 +11,7 @@
              <ResourceDictionary.MergedDictionaries>
                  <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                  <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/ConnectButtonTheme.xaml"/>
+                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
                  <ResourceDictionary Source="Theme/MessagesTheme.xaml"/>
                  <ResourceDictionary Source="Theme/ComboBoxTheme.xaml"/>
              </ResourceDictionary.MergedDictionaries>
@@ -22,6 +22,10 @@
             
             <DataTemplate DataType="{x:Type viewmodel:PublishViewModel}">
                 <view:PublishView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodel:SubscribeViewModel}">
+                <view:SubscribeView/>
             </DataTemplate>
          </ResourceDictionary>
     </Application.Resources>

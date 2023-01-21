@@ -26,7 +26,14 @@ namespace MQTT_GUI.MVVM.Views
             var msg = MessageBox.Text;
 
             if (topic == string.Empty)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    PubErr.Text = "Please enter a topic";
+                    PubErr.Visibility = Visibility.Visible;
+                });
                 return;
+            }
 
             var qosIdx = QoSBox.SelectedIndex;
             Publish.QOS qos;
@@ -99,6 +106,13 @@ namespace MQTT_GUI.MVVM.Views
                     }
                 }).Start();
             }
+        }
+
+        private void ButtonClear(object sender, RoutedEventArgs e)
+        {
+            TopicBox.Clear();
+            MessageBox.Clear();
+            QoSBox.SelectedIndex = 0;
         }
     }
 }

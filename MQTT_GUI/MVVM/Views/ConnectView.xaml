@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
              mc:Ignorable="d"
-             Width="720"
-             Height="600"
+             d:DesignWidth="720"
+             d:DesignHeight="700"
              Background="Transparent">
     
     <UserControl.DataContext>
@@ -82,10 +82,16 @@
                 Style="{StaticResource ConnectButton}" />
         <TextBox VerticalAlignment="Top"
                  HorizontalAlignment="Center"
-                 Visibility="Hidden"
+                 Visibility="Collapsed"
                  x:Name="Errors"
                  Margin="0, 35, 0, 0"
                  Style="{StaticResource ErrorMessage}" />
+        <ProgressBar Height="20"
+                     Width="100"
+                     IsIndeterminate="True"
+                     Visibility="{Binding ShowProgressBar}"
+                     Margin="0, 35, 0, 0"
+                     x:Name="ProgressBar"/>
 
     </StackPanel>
 </UserControl>
