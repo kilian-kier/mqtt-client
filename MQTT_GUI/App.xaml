@@ -14,6 +14,7 @@
                  <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
                  <ResourceDictionary Source="Theme/MessagesTheme.xaml"/>
                  <ResourceDictionary Source="Theme/ComboBoxTheme.xaml"/>
+                 <ResourceDictionary Source="Theme/TreeViewTheme.xaml"/>
              </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewmodel:ConnectViewModel}">

@@ -66,25 +66,25 @@ namespace MQTT_GUI.MVVM.Views
         private void ButtonUnsubscribe(object sender, RoutedEventArgs e)
         {
             var topic = UnsubscribeBox.SelectedValue.ToString();
-
-            var unsubscribe = new Unsubscribe(topic);
-            MQTTClient.Client.SendObject(unsubscribe);
             new Thread(() =>
             {
+                var unsubscribe = new Unsubscribe(topic);
+                MQTTClient.Client.SendObject(unsubscribe);
                 var unSubAck = MQTTClient.Client.Receiver.GetUnsubAck();
                 if (unSubAck == null)
                 {
                     // TODO: Error
+                    return;
                 }
-                else
+
+                // TODO: success
+                Dispatcher.Invoke(() =>
                 {
-                    // TODO: success
-                    Dispatcher.Invoke(() =>
-                    {
-                        SubscribeViewModel.Unsubscribable.Remove(topic);
-                        UnsubscribeBox.SelectedIndex = 0;
-                    });
-                }
+                    SubscribeViewModel.Unsubscribable.Remove(topic);
+                    UnsubscribeBox.SelectedIndex = 0;
+                });
+                // TODO: remove
+                // SubscriptionsViewModel.Remove(topic);
             }).Start();
         }
     }

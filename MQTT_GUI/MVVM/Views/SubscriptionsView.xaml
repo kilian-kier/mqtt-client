@@ -12,4 +12,33 @@
     <UserControl.DataContext>
         <viewModel:SubscriptionsViewModel />
     </UserControl.DataContext>
+    
+    <StackPanel>
+        <TextBlock Text="Subscriptions"
+                   Foreground="White"
+                   FontSize="18"
+                   HorizontalAlignment="Center"
+                   Margin="0 50 0 50"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      Width="400"
+                      Height="350"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center">
+            <TreeView x:Name="TreeView"
+                      ItemsSource="{Binding Roots}"
+                      Style="{StaticResource TreeView}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding  Items}"
+                                              DataType="{x:Type viewModel:SubscriptionsViewModel}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Topic}"
+                                       Margin="0 0 20 10"/>
+                            <TextBlock Text="{Binding Message}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </ScrollViewer>
+    </StackPanel>
 </UserControl>

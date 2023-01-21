@@ -79,6 +79,7 @@ namespace MQTT_GUI.MVVM.Views
                 MainWindowViewModel.ConnectViewModel.ButtonEnabled = true;
 
                 TopicsController.AddTopics(Dispatcher);
+                SubscriptionsController.SubscriptionThread(Dispatcher);
 
                 MainWindowViewModel.PublishViewCommand.Execute(null);
             }).Start();
