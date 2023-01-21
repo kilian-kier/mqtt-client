@@ -6,7 +6,7 @@
              xmlns:viewModel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
              mc:Ignorable="d"
              d:DesignWidth="720"
-             d:DesignHeight="700"
+             Height="700"
              Background="Transparent">
     
     <UserControl.DataContext>
@@ -89,7 +89,7 @@
         <ProgressBar Height="20"
                      Width="100"
                      IsIndeterminate="True"
-                     Visibility="{Binding ShowProgressBar}"
+                     Visibility="{Binding ShowProgressBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Margin="0, 35, 0, 0"
                      x:Name="ProgressBar"/>
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using MQTT_GUI.MQTT;
 using MQTT_GUI.MQTT.messages;
 
@@ -7,15 +8,19 @@ namespace MQTT_GUI.MVVM.Controller
 {
     public static class ConnectController
     {
-        public static bool Connect(string brokerIp, int port, TextBox errors)
+        public static bool Connect(string brokerIp, int port, TextBox errors, Dispatcher dispatcher)
         {
             MQTTClient.Client = new MQTTClient(brokerIp, port);
             if (!MQTTClient.Client.CreateTcpConnection())
             {
-                errors.Visibility = Visibility.Visible;
-                errors.Text = "Can not connect to MQTT Broker with this IP address and port";
+                dispatcher.Invoke(() =>
+                {
+                    errors.Visibility = Visibility.Visible;
+                    errors.Text = "Can not connect to MQTT Broker with this IP address and port";
+                });
                 return false;
             }
+
             var connectPacket = new Connect("stkiekil");
             MQTTClient.Client.SendObject(connectPacket);
             var connAck = MQTTClient.Client.Receiver.GetConnAck();

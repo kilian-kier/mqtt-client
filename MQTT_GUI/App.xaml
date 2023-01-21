@@ -24,8 +24,16 @@
                 <view:PublishView/>
             </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewmodel:TopicsViewModel}">
+                <view:TopicsView/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewmodel:SubscribeViewModel}">
                 <view:SubscribeView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodel:SubscriptionsViewModel}">
+                <view:SubscriptionsView/>
             </DataTemplate>
          </ResourceDictionary>
     </Application.Resources>

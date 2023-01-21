@@ -63,7 +63,8 @@
         </Page>
         <Page Include="MVVM\Views\PublishView.xaml"/>
         <Page Include="MVVM\Views\SubscribeView.xaml"/>
-        <Page Include="MVVM\Views\Topics.xaml"/>
+        <Page Include="MVVM\Views\SubscriptionsView.xaml"/>
+        <Page Include="MVVM\Views\TopicsView.xaml"/>
         <Page Include="Theme\ComboBoxTheme.xaml"/>
         <Page Include="Theme\ButtonTheme.xaml"/>
         <Page Include="Theme\MessagesTheme.xaml"/>
@@ -77,17 +78,20 @@
         <Compile Include="MQTT\messages\Disconnect.cs" />
         <Compile Include="MQTT\messages\PingReq.cs" />
         <Compile Include="MQTT\messages\Publish.cs" />
-        <Compile Include="MQTT\messages\Subscribe.cs" />
+        <Compile Include="MQTT\messages\Subscribe.cs"/>
         <Compile Include="MQTT\messages\Unsubscribe.cs"/>
-        <Compile Include="MQTT\models\MessageType.cs" />
-        <Compile Include="MQTT\models\MQTT.cs" />
-        <Compile Include="MQTT\MQTTClient.cs" />
-        <Compile Include="MQTT\ReceiveThread.cs" />
-        <Compile Include="MVVM\Controller\ConnectController.cs" />
-        <Compile Include="MVVM\ViewModel\ConnectViewModel.cs" />
-        <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
+        <Compile Include="MQTT\models\MessageType.cs"/>
+        <Compile Include="MQTT\models\MQTT.cs"/>
+        <Compile Include="MQTT\MQTTClient.cs"/>
+        <Compile Include="MQTT\ReceiveThread.cs"/>
+        <Compile Include="MVVM\Controller\ConnectController.cs"/>
+        <Compile Include="MVVM\Controller\TopicsController.cs"/>
+        <Compile Include="MVVM\ViewModel\ConnectViewModel.cs"/>
+        <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs"/>
         <Compile Include="MVVM\ViewModel\PublishViewModel.cs"/>
         <Compile Include="MVVM\ViewModel\SubscribeViewModel.cs"/>
+        <Compile Include="MVVM\ViewModel\SubscriptionsViewModel.cs"/>
+        <Compile Include="MVVM\ViewModel\TopicsViewModel.cs"/>
         <Compile Include="MVVM\Views\ConnectView.xaml.cs">
             <DependentUpon>ConnectView.xaml</DependentUpon>
         </Compile>
@@ -100,8 +104,11 @@
         <Compile Include="MVVM\Views\SubscribeView.xaml.cs">
             <DependentUpon>SubscribeView.xaml</DependentUpon>
         </Compile>
-        <Compile Include="MVVM\Views\Topics.xaml.cs">
-            <DependentUpon>Topics.xaml</DependentUpon>
+        <Compile Include="MVVM\Views\SubscriptionsView.xaml.cs">
+            <DependentUpon>SubscriptionsView.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="MVVM\Views\TopicsView.xaml.cs">
+            <DependentUpon>TopicsView.xaml</DependentUpon>
         </Compile>
         <Compile Include="Properties\Annotations.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs">

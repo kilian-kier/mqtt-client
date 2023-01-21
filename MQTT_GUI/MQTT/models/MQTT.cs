@@ -17,7 +17,7 @@ namespace MQTT_GUI.MQTT.models
             ret.AddRange(RemainingLength);
             ret.AddRange(Header);
             ret.AddRange(Payload);
-            
+
             return ret.ToArray();
         }
 
@@ -27,7 +27,7 @@ namespace MQTT_GUI.MQTT.models
                 return;
             ControlHeader = data[0];
             const byte continuation = 0b10000000;
-            var remainingLength = 1;
+            var remainingLengthBytes = 1;
             if (data.Length == 2)
             {
                 RemainingLength = new[] {data[1]};
@@ -35,13 +35,13 @@ namespace MQTT_GUI.MQTT.models
                 Payload = Array.Empty<byte>();
                 return;
             }
-            
+
             for (var i = 2; i < 5; i++)
             {
                 var check = data[i] & continuation;
                 if (check != 0)
                 {
-                    remainingLength++;
+                    remainingLengthBytes++;
                 }
                 else
                 {
@@ -49,17 +49,27 @@ namespace MQTT_GUI.MQTT.models
                 }
             }
 
-            RemainingLength = new byte[remainingLength];
-            for (var i = 0; i < remainingLength; i++)
+            RemainingLength = new byte[remainingLengthBytes];
+            for (var i = 0; i < remainingLengthBytes; i++)
             {
                 RemainingLength[i] = data[1 + i];
             }
 
-            Header = new byte[data.Length - remainingLength - 1];
-            
-            for (var i = remainingLength + 1; i < data.Length; i++)
+            var remainingLength = 0;
+            if (remainingLengthBytes == 1)
             {
-                Header[i - remainingLength - 1] = data[i];
+                remainingLength = RemainingLength[0];
+            }
+            else
+            {
+                remainingLength = BitConverter.ToInt32(RemainingLength, 0);
+            }
+
+            Header = new byte[remainingLength];
+
+            for (var i = 0; i < remainingLength; i++)
+            {
+                Header[i] = data[1 + remainingLengthBytes + i];
             }
 
             Payload = Array.Empty<byte>();
@@ -107,7 +117,8 @@ namespace MQTT_GUI.MQTT.models
                 remainingLength = BitConverter.ToInt32(bytes, 0);
             }
 
-            var headerLength = BitConverter.ToInt16(new[] {data[remainingByteLength + 2], data[remainingByteLength + 1]}, 0);
+            var headerLength =
+                BitConverter.ToInt16(new[] {data[remainingByteLength + 2], data[remainingByteLength + 1]}, 0);
             Header = new byte[headerLength + 1];
             Header[0] = data[remainingByteLength + 1];
             for (var i = remainingByteLength + 2; i < remainingByteLength + 2 + headerLength + 1; i++)

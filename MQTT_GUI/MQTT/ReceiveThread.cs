@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Timers;
@@ -75,6 +76,9 @@ namespace MQTT_GUI.MQTT
                                 break;
                             case publish:
                                 SubQueue.Enqueue(packet);
+                                break;
+                            default:
+                                Debug.Write("");
                                 break;
                         }
                     }
@@ -157,24 +161,26 @@ namespace MQTT_GUI.MQTT
         {
             var ret = new List<models.MQTT>();
             var parsedBytes = 0;
-            var mqtt = new models.MQTT();
-            mqtt.FromBytes(bytes);
-            var flag = mqtt.ControlHeader >> 4;
-            const int publishFlag = (byte) MessageType.Publish >> 4;
-            if (flag != publishFlag)
-            {
-                ret.Add(mqtt);
-                return ret;
-            }
-
             while (parsedBytes < bytes.Length)
             {
                 var remaining = bytes.Length - parsedBytes;
                 var packetBytes = new byte[remaining];
                 Array.Copy(bytes, parsedBytes, packetBytes, 0, remaining);
-                mqtt = new models.MQTT();
-                parsedBytes += mqtt.FromSubscribedBytes(packetBytes);
-                ret.Add(mqtt);
+                var mqtt = new models.MQTT();
+                mqtt.FromBytes(packetBytes);
+                var flag = mqtt.ControlHeader >> 4;
+                const int publishFlag = (byte) MessageType.Publish >> 4;
+                if (flag != publishFlag)
+                {
+                    ret.Add(mqtt);
+                    parsedBytes += mqtt.GetBytes().Length;
+                }
+                else
+                {
+                    mqtt = new models.MQTT();
+                    parsedBytes += mqtt.FromSubscribedBytes(packetBytes);
+                    ret.Add(mqtt);
+                }
             }
 
             return ret;

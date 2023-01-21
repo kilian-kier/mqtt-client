@@ -9,15 +9,19 @@ namespace MQTT_GUI.MQTT
     public class MQTTClient
     {
         public static MQTTClient Client;
-        private readonly string _ip;
-        private readonly int _port;
+        public static string Ip;
+        public static int Port;
         public ReceiveThread Receiver;
         public TcpClient TcpClient;
 
         public MQTTClient(string ipAddress, int port)
         {
-            _ip = ipAddress;
-            _port = port;
+            Ip = ipAddress;
+            Port = port;
+        }
+
+        public MQTTClient()
+        {
         }
 
         public bool CreateTcpConnection()
@@ -26,10 +30,11 @@ namespace MQTT_GUI.MQTT
             {
                 TcpClient.Close();
             }
+
             TcpClient = new TcpClient();
             try
             {
-                TcpClient.Connect(_ip, _port);
+                TcpClient.Connect(Ip, Port);
             }
             catch (Exception e)
             {

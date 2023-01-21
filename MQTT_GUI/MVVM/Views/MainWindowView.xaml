@@ -56,7 +56,7 @@
                              Foreground="White"
                              FontSize="14"
                              Visibility="Hidden"
-                             Command="{Binding SubscribeViewCommand}"
+                             Command="{Binding TopicsViewCommand}"
                              x:Name="TopicsMenuButton"
                              x:FieldModifier="public"
                              Style="{StaticResource MenuButton}"/>
@@ -74,6 +74,7 @@
                              Foreground="White"
                              FontSize="14"
                              Visibility="Hidden"
+                             Command="{Binding SubscriptionsViewCommand}"
                              x:Name="SubscriptionsMenuButton"
                              x:FieldModifier="public"
                              Style="{StaticResource MenuButton}"/>
@@ -83,6 +84,8 @@
                             Grid.Row="0"
                             Grid.RowSpan="2"
                             Margin="10"
+                            x:FieldModifier="public"
+                            x:Name="ContentControl"
                             Content="{Binding CurrentView}"/>
         </Grid>
     </Border>
