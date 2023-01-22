@@ -1,14 +1,12 @@
-﻿using System.Diagnostics;
-using System.Threading;
+﻿using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using MQTT_GUI.MQTT;
 using MQTT_GUI.MQTT.messages;
 using MQTT_GUI.MVVM.ViewModel;
 
 namespace MQTT_GUI.MVVM.Views
 {
-    public partial class SubscribeView : UserControl
+    public partial class SubscribeView
     {
         public SubscribeView()
         {
@@ -28,7 +26,7 @@ namespace MQTT_GUI.MVVM.Views
             SubErr.Visibility = Visibility.Collapsed;
             SubSuc.Visibility = Visibility.Collapsed;
             var topic = TopicBox.Text;
-            
+
             if (string.IsNullOrEmpty(topic))
             {
                 Dispatcher.Invoke(() =>
@@ -40,24 +38,24 @@ namespace MQTT_GUI.MVVM.Views
             }
 
             var qosIdx = QoSBox.SelectedIndex;
-            Subscribe.QOS qos;
+            Subscribe.QoS qoS;
             switch (qosIdx)
             {
                 case 0:
-                    qos = Subscribe.QOS.AtMostOnce;
+                    qoS = Subscribe.QoS.AtMostOnce;
                     break;
                 case 1:
-                    qos = Subscribe.QOS.ExactlyOnce;
+                    qoS = Subscribe.QoS.ExactlyOnce;
                     break;
                 case 2:
-                    qos = Subscribe.QOS.AtLeastOnce;
+                    qoS = Subscribe.QoS.AtLeastOnce;
                     break;
                 default:
-                    qos = Subscribe.QOS.AtMostOnce;
+                    qoS = Subscribe.QoS.AtMostOnce;
                     break;
             }
 
-            var subscribe = new Subscribe(topic, qos);
+            var subscribe = new Subscribe(topic, qoS);
             MQTTClient.Client.SendObject(subscribe);
             new Thread(() =>
             {
@@ -66,7 +64,8 @@ namespace MQTT_GUI.MVVM.Views
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        SubErr.Text = "The subscribe message was NOT successful! Broker didn't respond with an acknowledgement";
+                        SubErr.Text =
+                            "The subscribe message was NOT successful! Broker didn't respond with an acknowledgement";
                         SubErr.Visibility = Visibility.Visible;
                     });
                 }
@@ -98,6 +97,7 @@ namespace MQTT_GUI.MVVM.Views
                 });
                 return;
             }
+
             var topic = UnsubscribeBox.SelectedValue.ToString();
             new Thread(() =>
             {
@@ -108,12 +108,13 @@ namespace MQTT_GUI.MVVM.Views
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        SubErr.Text = "The unsubscribe message was NOT successful! Broker didn't respond with an acknowledgement";
+                        SubErr.Text =
+                            "The unsubscribe message was NOT successful! Broker didn't respond with an acknowledgement";
                         SubErr.Visibility = Visibility.Visible;
                     });
                     return;
                 }
-                
+
                 Dispatcher.Invoke(() =>
                 {
                     SubSuc.Text = "The unsubscribe message was sent successfully";

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using MQTT_GUI.Core;
 
 namespace MQTT_GUI.MVVM.ViewModel

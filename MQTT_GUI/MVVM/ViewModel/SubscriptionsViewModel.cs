@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using MQTT_GUI.Core;
-using MQTT_GUI.MVVM.Views;
 
 namespace MQTT_GUI.MVVM.ViewModel
 {
@@ -12,32 +9,32 @@ namespace MQTT_GUI.MVVM.ViewModel
     {
         public static BindingList<SubscriptionsViewModel> Roots { get; } = new BindingList<SubscriptionsViewModel>();
         public string Topic { get; }
-        private SubscriptionsViewModel _parent { get; set; }
+        private SubscriptionsViewModel Parent { get; set; }
         private string _message = "";
 
         public string Message
         {
             get => _message;
-            set
+            private set
             {
                 _message = value;
                 OnPropertyChanged();
             }
-        }        
+        }
+
         public ObservableCollection<SubscriptionsViewModel> Items { get; set; }
 
 
-        public SubscriptionsViewModel(string topic, string message)
+        private SubscriptionsViewModel(string topic, string message)
         {
             Topic = topic;
             Message = message;
-            _parent = null;
+            Parent = null;
             Items = new ObservableCollection<SubscriptionsViewModel>();
         }
 
         public SubscriptionsViewModel()
         {
-            
         }
 
         public void AddMessage(string topic, string message)
@@ -67,7 +64,7 @@ namespace MQTT_GUI.MVVM.ViewModel
                 var t = topic.Substring(sub + 1);
                 Insert(root, t, message);
             }
-            
+
             OnPropertyChanged();
         }
 
@@ -86,7 +83,7 @@ namespace MQTT_GUI.MVVM.ViewModel
 
                 var child = new SubscriptionsViewModel(topic, message)
                 {
-                    _parent = parent
+                    Parent = parent
                 };
                 parent.Items.Add(child);
                 return;
@@ -104,7 +101,7 @@ namespace MQTT_GUI.MVVM.ViewModel
 
             var node = new SubscriptionsViewModel(sub, "")
             {
-                _parent = parent
+                Parent = parent
             };
             parent.Items.Add(node);
             Insert(node, t, message);
@@ -123,6 +120,7 @@ namespace MQTT_GUI.MVVM.ViewModel
 
                 return;
             }
+
             var sub = topic.IndexOf('/');
             if (sub == -1)
             {
@@ -157,10 +155,10 @@ namespace MQTT_GUI.MVVM.ViewModel
             if (topic == "#")
             {
                 parent.Items.Clear();
-                parent._parent?.Items.Remove(parent);
+                parent.Parent?.Items.Remove(parent);
                 return;
             }
-            
+
             var next = topic.IndexOf('/');
             if (next == -1)
             {
@@ -174,7 +172,7 @@ namespace MQTT_GUI.MVVM.ViewModel
 
                 if (parent.Items.Count != 0) return;
 
-                parent._parent?.Items.Remove(parent);
+                parent.Parent?.Items.Remove(parent);
                 return;
             }
 
@@ -187,9 +185,9 @@ namespace MQTT_GUI.MVVM.ViewModel
                 RecRemove(item, t);
                 if (parent.Items.Count != 0) return;
 
-                parent._parent?.Items.Remove(parent);
+                parent.Parent?.Items.Remove(parent);
                 break;
             }
-        } 
+        }
     }
 }

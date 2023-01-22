@@ -7,7 +7,7 @@ namespace MQTT_GUI.MQTT.messages
 {
     public class Subscribe : models.MQTT
     {
-        public enum QOS : byte
+        public enum QoS : byte
         {
             ExactlyOnce = 2,
             AtLeastOnce = 1,
@@ -16,7 +16,7 @@ namespace MQTT_GUI.MQTT.messages
 
         private static short _idCounter = 1;
 
-        public Subscribe(string topic, QOS qos)
+        public Subscribe(string topic, QoS qoS)
         {
             ControlHeader = (byte) MessageType.Subscribe + 2;
             RemainingLength = new[] {(byte) (5 + topic.Length)};
@@ -36,7 +36,7 @@ namespace MQTT_GUI.MQTT.messages
 
             Header = header.ToArray();
 
-            Payload = new[] {(byte) qos};
+            Payload = new[] {(byte) qoS};
         }
     }
 }

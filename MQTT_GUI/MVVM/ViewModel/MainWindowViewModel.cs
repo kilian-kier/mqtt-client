@@ -1,30 +1,27 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using MQTT_GUI.Core;
-using MQTT_GUI.MVVM.Views;
+﻿using MQTT_GUI.Core;
 
 namespace MQTT_GUI.MVVM.ViewModel
 {
     public class MainWindowViewModel : ObservableObject
     {
-        public static RelayCommand ConnectViewCommand { get; set; }
-        public static RelayCommand PublishViewCommand { get; set; }
-        public static RelayCommand TopicsViewCommand { get; set; }
-        public static RelayCommand SubscribeViewCommand { get; set; }
-        public static RelayCommand SubscriptionsViewCommand { get; set; }
+        public static RelayCommand ConnectViewCommand { get; private set; }
+        public static RelayCommand PublishViewCommand { get; private set; }
+        public static RelayCommand TopicsViewCommand { get; private set; }
+        public static RelayCommand SubscribeViewCommand { get; private set; }
+        public static RelayCommand SubscriptionsViewCommand { get; private set; }
 
-        public static ConnectViewModel ConnectViewModel { get; set; }
-        public static PublishViewModel PublishViewModel { get; set; }
-        public static TopicsViewModel TopicsViewModel { get; set; }
-        public static SubscribeViewModel SubscribeViewModel { get; set; }
-        public static SubscriptionsViewModel SubscriptionsViewModel { get; set; }
+        public static ConnectViewModel ConnectViewModel { get; private set; }
+        private static PublishViewModel PublishViewModel { get; set; }
+        public static TopicsViewModel TopicsViewModel { get; private set; }
+        private static SubscribeViewModel SubscribeViewModel { get; set; }
+        public static SubscriptionsViewModel SubscriptionsViewModel { get; private set; }
 
         private object _currentView;
 
         public object CurrentView
         {
             get => _currentView;
-            set
+            private set
             {
                 _currentView = value;
                 OnPropertyChanged();

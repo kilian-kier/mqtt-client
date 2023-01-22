@@ -3,11 +3,10 @@ using System.Threading;
 using System.Windows.Threading;
 using MQTT_GUI.MQTT;
 using MQTT_GUI.MVVM.ViewModel;
-using MQTT_GUI.MVVM.Views;
 
 namespace MQTT_GUI.MVVM.Controller
 {
-    public class SubscriptionsController
+    public static class SubscriptionsController
     {
         public static void SubscriptionThread(Dispatcher dispatcher)
         {
@@ -23,17 +22,7 @@ namespace MQTT_GUI.MVVM.Controller
                     var subscribed = MQTTClient.Client.Receiver.SubQueue.Dequeue();
                     var topic = Encoding.ASCII.GetString(subscribed.Header, 1, subscribed.Header.Length - 1);
                     var message = Encoding.ASCII.GetString(subscribed.Payload, 0, subscribed.Payload.Length);
-                    dispatcher.Invoke(() =>
-                    {
-                        /*while (SubscriptionsView.Context == null)
-                        {
-                            Thread.Sleep(100);
-                        }
-                        var context = (SubscriptionsViewModel) SubscriptionsView.Context;
-                        SubscriptionsView.Context = null;*/
-                        MainWindowViewModel.SubscriptionsViewModel.AddMessage(topic, message);
-                        // SubscriptionsView.Context = context;
-                    });
+                    dispatcher.Invoke(() => { MainWindowViewModel.SubscriptionsViewModel.AddMessage(topic, message); });
                 }
             }).Start();
         }

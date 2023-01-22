@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using MQTT_GUI.Core;
 
 namespace MQTT_GUI.MVVM.ViewModel
@@ -7,7 +6,7 @@ namespace MQTT_GUI.MVVM.ViewModel
     public class ConnectViewModel : ObservableObject
     {
         private static string _connectedBroker = "Not connected";
-        private static bool _buttonEnabled = false;
+        private static bool _buttonEnabled;
         private Visibility _showProgressBar = Visibility.Collapsed;
 
         public string ConnectedBroker

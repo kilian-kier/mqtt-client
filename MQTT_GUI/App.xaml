@@ -1,41 +1,40 @@
 ﻿<Application x:Class="MQTT_GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MQTT_GUI"
              xmlns:viewmodel="clr-namespace:MQTT_GUI.MVVM.ViewModel"
              xmlns:view="clr-namespace:MQTT_GUI.MVVM.Views"
              StartupUri="MVVM/Views/MainWindowView.xaml"
              Exit="App_OnExit">
     <Application.Resources>
         <ResourceDictionary>
-             <ResourceDictionary.MergedDictionaries>
-                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/MessagesTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/ComboBoxTheme.xaml"/>
-                 <ResourceDictionary Source="Theme/TreeViewTheme.xaml"/>
-             </ResourceDictionary.MergedDictionaries>
-            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/TextBoxTheme.xaml" />
+                <ResourceDictionary Source="Theme/ButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/MessagesTheme.xaml" />
+                <ResourceDictionary Source="Theme/ComboBoxTheme.xaml" />
+                <ResourceDictionary Source="Theme/TreeViewTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
             <DataTemplate DataType="{x:Type viewmodel:ConnectViewModel}">
-                <view:Connect/>
+                <view:Connect />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type viewmodel:PublishViewModel}">
-                <view:PublishView/>
+                <view:PublishView />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type viewmodel:TopicsViewModel}">
-                <view:TopicsView/>
+                <view:TopicsView />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type viewmodel:SubscribeViewModel}">
-                <view:SubscribeView/>
+                <view:SubscribeView />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type viewmodel:SubscriptionsViewModel}">
-                <view:SubscriptionsView/>
+                <view:SubscriptionsView />
             </DataTemplate>
-         </ResourceDictionary>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

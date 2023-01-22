@@ -1,13 +1,10 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
-using MQTT_GUI.Core;
 using MQTT_GUI.MVVM.Controller;
 using MQTT_GUI.MVVM.ViewModel;
 
 namespace MQTT_GUI.MVVM.Views
 {
-    public partial class TopicsView : UserControl
+    public partial class TopicsView
     {
         public static object Context { get; set; }
 

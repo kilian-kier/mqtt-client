@@ -6,7 +6,7 @@ namespace MQTT_GUI.MQTT.models
     public class MQTT
     {
         public byte ControlHeader;
-        public byte[] RemainingLength;
+        protected byte[] RemainingLength;
         public byte[] Header;
         public byte[] Payload;
 
@@ -57,15 +57,9 @@ namespace MQTT_GUI.MQTT.models
                     RemainingLength[i] = data[1 + i];
                 }
 
-                var remainingLength = 0;
-                if (remainingLengthBytes == 1)
-                {
-                    remainingLength = RemainingLength[0];
-                }
-                else
-                {
-                    remainingLength = BitConverter.ToInt32(RemainingLength, 0);
-                }
+                var remainingLength = remainingLengthBytes == 1
+                    ? RemainingLength[0]
+                    : BitConverter.ToInt32(RemainingLength, 0);
 
                 Header = new byte[remainingLength];
 
@@ -79,7 +73,6 @@ namespace MQTT_GUI.MQTT.models
             catch (Exception)
             {
                 // ignored
-                return;
             }
         }
 

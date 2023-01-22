@@ -1,12 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
+﻿using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using MQTT_GUI.MQTT;
 using MQTT_GUI.MQTT.messages;
-using MQTT_GUI.MVVM.ViewModel;
 
 namespace MQTT_GUI.MVVM.Views
 {
@@ -36,20 +31,20 @@ namespace MQTT_GUI.MVVM.Views
             }
 
             var qosIdx = QoSBox.SelectedIndex;
-            Publish.QOS qos;
+            Publish.Qos qos;
             switch (qosIdx)
             {
                 case 0:
-                    qos = Publish.QOS.AtMostOnce;
+                    qos = Publish.Qos.AtMostOnce;
                     break;
                 case 1:
-                    qos = Publish.QOS.ExactlyOnce;
+                    qos = Publish.Qos.ExactlyOnce;
                     break;
                 case 2:
-                    qos = Publish.QOS.AtLeastOnce;
+                    qos = Publish.Qos.AtLeastOnce;
                     break;
                 default:
-                    qos = Publish.QOS.AtMostOnce;
+                    qos = Publish.Qos.AtMostOnce;
                     break;
             }
 

@@ -9,14 +9,14 @@ namespace MQTT_GUI.MQTT.messages
     {
         private static int _idCounter = 1;
 
-        public enum QOS : byte
+        public enum Qos : byte
         {
             ExactlyOnce = 4,
             AtLeastOnce = 2,
             AtMostOnce = 0
         }
 
-        public Publish(string topic, string message, QOS qos)
+        public Publish(string topic, string message, Qos qos)
         {
             ControlHeader = (byte) (MessageType.Publish + (byte) qos);
 

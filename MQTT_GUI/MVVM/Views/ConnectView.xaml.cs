@@ -2,17 +2,13 @@
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using MQTT_GUI.Core;
-using MQTT_GUI.MQTT;
-using MQTT_GUI.MQTT.messages;
 using MQTT_GUI.MVVM.Controller;
 using MQTT_GUI.MVVM.ViewModel;
 
 namespace MQTT_GUI.MVVM.Views
 {
-    public partial class Connect : UserControl
+    public partial class Connect
     {
         public Connect()
         {
@@ -21,6 +17,16 @@ namespace MQTT_GUI.MVVM.Views
 
         private void ButtonConnect(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(BrokerIp.Text) || string.IsNullOrEmpty(BrokerPort.Text))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Errors.Text = "Please enter an IP address and port of your MQTT broker";
+                    Errors.Visibility = Visibility.Visible;
+                });
+                return;
+            }
+
             var dispatcher = Dispatcher;
             var windows = Application.Current.Windows;
             var brokerIp = BrokerIp.Text;
@@ -127,7 +133,7 @@ namespace MQTT_GUI.MVVM.Views
         private void IpSetFocus(object sender, RoutedEventArgs e)
         {
             var tb = sender as TextBox;
-            if (tb == null) return;            
+            if (tb == null) return;
             tb.Focusable = true;
             Keyboard.Focus(tb);
         }

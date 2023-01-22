@@ -8,28 +8,28 @@
              d:DesignWidth="720"
              Height="700"
              Background="Transparent">
-    
+
     <UserControl.DataContext>
-        <viewModel:ConnectViewModel/>
+        <viewModel:ConnectViewModel />
     </UserControl.DataContext>
-    
+
     <StackPanel>
         <Grid HorizontalAlignment="Center"
               VerticalAlignment="Top"
               Width="350"
               Margin="50 100 0 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <TextBlock Text="Broker: "
                        Grid.Column="0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Foreground="White"
-                       FontSize="14"/>
+                       FontSize="14" />
             <TextBlock Text="{Binding ConnectedBroker}"
                        Grid.Column="1"
                        HorizontalAlignment="Right"
@@ -37,7 +37,7 @@
                        Margin="0 0 25 0"
                        Padding="0"
                        Foreground="White"
-                       FontSize="14"/>
+                       FontSize="14" />
             <Button Content="Disconnect"
                     Grid.Column="2"
                     Width="100"
@@ -47,7 +47,7 @@
                     IsEnabled="{Binding ButtonEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource DisconnectButton }" />
         </Grid>
-        <Separator Margin="50"/>
+        <Separator Margin="50" />
         <TextBlock Text="MQTT Broker"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
@@ -90,7 +90,7 @@
                      IsIndeterminate="True"
                      Visibility="{Binding ShowProgressBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Margin="0, 35, 0, 0"
-                     x:Name="ProgressBar"/>
+                     x:Name="ProgressBar" />
 
     </StackPanel>
 </UserControl>

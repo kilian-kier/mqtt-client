@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Threading;
 using MQTT_GUI.MQTT;
 using MQTT_GUI.MQTT.messages;
@@ -14,9 +11,9 @@ using Connect = MQTT_GUI.MQTT.messages.Connect;
 
 namespace MQTT_GUI.MVVM.Controller
 {
-    public class TopicsController
+    public static class TopicsController
     {
-        private static bool _alreadyRunning = false;
+        private static bool _alreadyRunning;
 
         public static void AddTopics(Dispatcher dispatcher)
         {
@@ -50,8 +47,8 @@ namespace MQTT_GUI.MVVM.Controller
                     return;
                 }
 
-                var subscribeToSystemTopics = new Subscribe("$SYS/#", Subscribe.QOS.AtLeastOnce);
-                var subscribeToOtherTopics = new Subscribe("#", Subscribe.QOS.AtLeastOnce);
+                var subscribeToSystemTopics = new Subscribe("$SYS/#", Subscribe.QoS.AtLeastOnce);
+                var subscribeToOtherTopics = new Subscribe("#", Subscribe.QoS.AtLeastOnce);
                 topicsClient.SendObject(subscribeToSystemTopics);
                 topicsClient.SendObject(subscribeToOtherTopics);
 
@@ -99,6 +96,7 @@ namespace MQTT_GUI.MVVM.Controller
                     dispatcher.Invoke(() => { context1.ProgressBar = Visibility.Hidden; });
                     TopicsView.Context = context1;
                 }
+
                 _alreadyRunning = false;
             }).Start();
         }

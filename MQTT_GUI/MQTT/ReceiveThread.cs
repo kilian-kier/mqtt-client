@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Timers;
-using System.Windows;
 using MQTT_GUI.MQTT.messages;
 using MQTT_GUI.MQTT.models;
 using Timer = System.Timers.Timer;
@@ -76,9 +74,6 @@ namespace MQTT_GUI.MQTT
                                 break;
                             case publish:
                                 SubQueue.Enqueue(packet);
-                                break;
-                            default:
-                                Debug.Write("");
                                 break;
                         }
                     }

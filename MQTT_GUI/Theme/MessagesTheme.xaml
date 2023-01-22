@@ -13,14 +13,14 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontSize="14"
-                                   Foreground="White" 
-                                   Padding="10, 0, 10, 0"/>
+                                   Foreground="White"
+                                   Padding="10, 0, 10, 0" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="{x:Type TextBox}"
            x:Key="SuccessMessage">
         <Setter Property="Template">
@@ -34,14 +34,14 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontSize="14"
-                                   Foreground="White" 
-                                   Padding="10, 0, 10, 0"/>
+                                   Foreground="White"
+                                   Padding="10, 0, 10, 0" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="{x:Type TextBox}"
            x:Key="InfoMessage">
         <Setter Property="Template">
@@ -55,8 +55,8 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    FontSize="14"
-                                   Foreground="White" 
-                                   Padding="10, 0, 10, 0"/>
+                                   Foreground="White"
+                                   Padding="10, 0, 10, 0" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -8,15 +8,13 @@ namespace MQTT_GUI.MQTT.messages
     {
         private enum ConnectFlags : byte
         {
-            CleanSession = 2,
-            Password = 2 ^ 6,
-            UserName = 2 ^ 7,
+            CleanSession = 2
         }
 
         public Connect(string clientId)
         {
             ControlHeader = (byte) MessageType.Connect;
-            RemainingLength = new byte[] {(byte)(12 + clientId.Length)};
+            RemainingLength = new[] {(byte) (12 + clientId.Length)};
             Header = new byte[]
             {
                 0x0, 0x4,

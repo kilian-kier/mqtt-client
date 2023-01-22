@@ -12,13 +12,13 @@
     <UserControl.DataContext>
         <viewModel:SubscriptionsViewModel />
     </UserControl.DataContext>
-    
+
     <StackPanel>
         <TextBlock Text="Subscriptions"
                    Foreground="White"
                    FontSize="18"
                    HorizontalAlignment="Center"
-                   Margin="0 50 0 50"/>
+                   Margin="0 50 0 50" />
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       CanContentScroll="True"
@@ -33,8 +33,8 @@
                                               DataType="{x:Type viewModel:SubscriptionsViewModel}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Topic}"
-                                       Margin="0 0 20 10"/>
-                            <TextBlock Text="{Binding Message}"/>
+                                       Margin="0 0 20 10" />
+                            <TextBlock Text="{Binding Message}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
