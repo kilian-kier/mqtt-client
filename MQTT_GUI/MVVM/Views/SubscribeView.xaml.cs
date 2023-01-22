@@ -19,11 +19,25 @@ namespace MQTT_GUI.MVVM.Views
         {
             TopicBox.Clear();
             QoSBox.SelectedIndex = 0;
+            SubErr.Visibility = Visibility.Collapsed;
+            SubSuc.Visibility = Visibility.Collapsed;
         }
 
         private void ButtonSubscribe(object sender, RoutedEventArgs e)
         {
+            SubErr.Visibility = Visibility.Collapsed;
+            SubSuc.Visibility = Visibility.Collapsed;
             var topic = TopicBox.Text;
+            
+            if (string.IsNullOrEmpty(topic))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    SubErr.Text = "You must enter a topic to subscribe";
+                    SubErr.Visibility = Visibility.Visible;
+                });
+                return;
+            }
 
             var qosIdx = QoSBox.SelectedIndex;
             Subscribe.QOS qos;
@@ -50,11 +64,19 @@ namespace MQTT_GUI.MVVM.Views
                 var subAck = MQTTClient.Client.Receiver.GetSubAck();
                 if (subAck == null)
                 {
-                    // TODO: Error
+                    Dispatcher.Invoke(() =>
+                    {
+                        SubErr.Text = "The subscribe message was NOT successful! Broker didn't respond with an acknowledgement";
+                        SubErr.Visibility = Visibility.Visible;
+                    });
                 }
                 else
                 {
-                    // TODO: success
+                    Dispatcher.Invoke(() =>
+                    {
+                        SubSuc.Text = "The subscribe message was sent successfully";
+                        SubSuc.Visibility = Visibility.Visible;
+                    });
 
                     if (SubscribeViewModel.Unsubscribable.Contains(topic))
                         return;
@@ -65,6 +87,17 @@ namespace MQTT_GUI.MVVM.Views
 
         private void ButtonUnsubscribe(object sender, RoutedEventArgs e)
         {
+            SubErr.Visibility = Visibility.Collapsed;
+            SubSuc.Visibility = Visibility.Collapsed;
+            if (UnsubscribeBox.SelectedValue == null)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    SubErr.Text = "You must first subscribe to a topic in order to unsubscribe from it";
+                    SubErr.Visibility = Visibility.Visible;
+                });
+                return;
+            }
             var topic = UnsubscribeBox.SelectedValue.ToString();
             new Thread(() =>
             {
@@ -73,13 +106,18 @@ namespace MQTT_GUI.MVVM.Views
                 var unSubAck = MQTTClient.Client.Receiver.GetUnsubAck();
                 if (unSubAck == null)
                 {
-                    // TODO: Error
+                    Dispatcher.Invoke(() =>
+                    {
+                        SubErr.Text = "The unsubscribe message was NOT successful! Broker didn't respond with an acknowledgement";
+                        SubErr.Visibility = Visibility.Visible;
+                    });
                     return;
                 }
-
-                // TODO: success
+                
                 Dispatcher.Invoke(() =>
                 {
+                    SubSuc.Text = "The unsubscribe message was sent successfully";
+                    SubSuc.Visibility = Visibility.Visible;
                     SubscribeViewModel.Unsubscribable.Remove(topic);
                     UnsubscribeBox.SelectedIndex = 0;
                 });

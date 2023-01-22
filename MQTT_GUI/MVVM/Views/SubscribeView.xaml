@@ -19,7 +19,7 @@
                        Foreground="White"
                        FontSize="18"
                        HorizontalAlignment="Center"
-                       Margin="0 60 0 0" />
+                       Margin="0 40 0 0" />
             <TextBox Margin="0 20 0 0"
                      Style="{StaticResource TopicInput}"
                      x:Name="TopicBox" />
@@ -71,8 +71,22 @@
                         Click="ButtonSubscribe"
                         Style="{StaticResource DefaultButton}" />
             </Grid>
+            <Separator Margin="50 50 50 0"
+                       VerticalAlignment="Top" />
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
+            <TextBox VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center"
+                     Visibility="Collapsed"
+                     x:Name="SubErr"
+                     Margin="0, 0, 0, 50"
+                     Style="{StaticResource ErrorMessage}" />
+            <TextBox VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center"
+                     Visibility="Collapsed"
+                     x:Name="SubSuc"
+                     Margin="0, 0, 0, 50"
+                     Style="{StaticResource SuccessMessage}" />
             <Separator Margin="50 0 50 50"
                        VerticalAlignment="Bottom" />
             <TextBlock Text="Unsubscribe"
@@ -93,7 +107,7 @@
                       Style="{StaticResource QualityOfService}" />
             <Button HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
-                    Margin="0 0 0 150"
+                    Margin="0 0 0 120"
                     Content="Unsubscribe"
                     Click="ButtonUnsubscribe"
                     Style="{StaticResource DefaultButton}" />

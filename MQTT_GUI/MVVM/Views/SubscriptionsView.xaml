@@ -26,8 +26,7 @@
                       Height="450"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center">
-            <TreeView x:Name="TreeView"
-                      ItemsSource="{Binding Roots}"
+            <TreeView ItemsSource="{Binding Roots}"
                       Style="{StaticResource TreeView}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding  Items}"
