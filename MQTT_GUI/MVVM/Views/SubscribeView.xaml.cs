@@ -120,9 +120,8 @@ namespace MQTT_GUI.MVVM.Views
                     SubSuc.Visibility = Visibility.Visible;
                     SubscribeViewModel.Unsubscribable.Remove(topic);
                     UnsubscribeBox.SelectedIndex = 0;
+                    SubscriptionsViewModel.Remove(topic);
                 });
-                // TODO: remove
-                // SubscriptionsViewModel.Remove(topic);
             }).Start();
         }
     }

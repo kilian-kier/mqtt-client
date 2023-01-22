@@ -12,6 +12,7 @@ namespace MQTT_GUI.MVVM.ViewModel
     {
         public static BindingList<SubscriptionsViewModel> Roots { get; } = new BindingList<SubscriptionsViewModel>();
         public string Topic { get; }
+        private SubscriptionsViewModel _parent { get; set; }
         private string _message = "";
 
         public string Message
@@ -30,6 +31,7 @@ namespace MQTT_GUI.MVVM.ViewModel
         {
             Topic = topic;
             Message = message;
+            _parent = null;
             Items = new ObservableCollection<SubscriptionsViewModel>();
         }
 
@@ -81,7 +83,12 @@ namespace MQTT_GUI.MVVM.ViewModel
                     item.Message = message;
                     return;
                 }
-                parent.Items.Add(new SubscriptionsViewModel(topic, message));
+
+                var child = new SubscriptionsViewModel(topic, message)
+                {
+                    _parent = parent
+                };
+                parent.Items.Add(child);
                 return;
             }
 
@@ -94,13 +101,28 @@ namespace MQTT_GUI.MVVM.ViewModel
                 Insert(item, t, message);
                 return;
             }
-            var node = new SubscriptionsViewModel(sub, "");
+
+            var node = new SubscriptionsViewModel(sub, "")
+            {
+                _parent = parent
+            };
             parent.Items.Add(node);
             Insert(node, t, message);
         }
 
         public static void Remove(string topic)
         {
+            if (topic == "#")
+            {
+                foreach (var item in Roots.ToList())
+                {
+                    if (item.Topic.StartsWith("$"))
+                        return;
+                    Roots.Remove(item);
+                }
+
+                return;
+            }
             var sub = topic.IndexOf('/');
             if (sub == -1)
             {
@@ -124,12 +146,21 @@ namespace MQTT_GUI.MVVM.ViewModel
             {
                 var t = topic.Substring(sub + 1);
                 RecRemove(root, t);
+                if (root.Items.Count != 0)
+                    return;
+                Roots.Remove(root);
             }
         }
 
         private static void RecRemove(SubscriptionsViewModel parent, string topic)
         {
-            // TODO: ref
+            if (topic == "#")
+            {
+                parent.Items.Clear();
+                parent._parent?.Items.Remove(parent);
+                return;
+            }
+            
             var next = topic.IndexOf('/');
             if (next == -1)
             {
@@ -141,25 +172,23 @@ namespace MQTT_GUI.MVVM.ViewModel
                     break;
                 }
 
-                if (parent.Items.Count == 0)
-                {
-                    parent = null;
-                }
+                if (parent.Items.Count != 0) return;
+
+                parent._parent?.Items.Remove(parent);
                 return;
             }
 
             var sub = topic.Substring(0, next);
             var t = topic.Substring(next + 1);
-            for (var i = 0; i < parent.Items.Count; i++)
+            foreach (var item in parent.Items)
             {
-                if (parent.Items[i].Topic != sub)
+                if (item.Topic != sub)
                     continue;
-                RecRemove(parent.Items[i], t);
+                RecRemove(item, t);
+                if (parent.Items.Count != 0) return;
+
+                parent._parent?.Items.Remove(parent);
                 break;
-            }
-            if (parent.Items.Count == 0)
-            {
-                parent = null;
             }
         } 
     }
