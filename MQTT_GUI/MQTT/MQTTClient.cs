@@ -36,7 +36,7 @@ namespace MQTT_GUI.MQTT
             {
                 TcpClient.Connect(Ip, Port);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
