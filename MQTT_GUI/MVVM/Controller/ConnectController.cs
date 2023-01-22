@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using MQTT_GUI.MQTT;
@@ -21,7 +22,8 @@ namespace MQTT_GUI.MVVM.Controller
                 return false;
             }
 
-            var connectPacket = new Connect("stkiekil");
+            var clientId = Guid.NewGuid();
+            var connectPacket = new Connect(clientId.ToString());
             MQTTClient.Client.SendObject(connectPacket);
             var connAck = MQTTClient.Client.Receiver.GetConnAck();
             return connAck != null && connAck.Header != null && (connAck.Header.Length < 2 || connAck.Header[1] == 0);

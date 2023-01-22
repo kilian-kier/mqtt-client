@@ -25,14 +25,14 @@ namespace MQTT_GUI.MVVM.Controller
                     var message = Encoding.ASCII.GetString(subscribed.Payload, 0, subscribed.Payload.Length);
                     dispatcher.Invoke(() =>
                     {
-                        while (SubscriptionsView.Context == null)
+                        /*while (SubscriptionsView.Context == null)
                         {
                             Thread.Sleep(100);
                         }
                         var context = (SubscriptionsViewModel) SubscriptionsView.Context;
-                        SubscriptionsView.Context = null;
-                        context.AddMessage(topic, message, ref context);
-                        SubscriptionsView.Context = context;
+                        SubscriptionsView.Context = null;*/
+                        MainWindowViewModel.SubscriptionsViewModel.AddMessage(topic, message);
+                        // SubscriptionsView.Context = context;
                     });
                 }
             }).Start();

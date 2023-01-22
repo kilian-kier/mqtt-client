@@ -27,19 +27,22 @@ namespace MQTT_GUI.MVVM.Controller
 
             new Thread(() =>
             {
-                while (TopicsView.Context == null)
+                if (TopicsView.Context == null)
                 {
-                    Thread.Sleep(10);
+                    dispatcher.Invoke(() => { MainWindowViewModel.TopicsViewModel.ProgressBar = Visibility.Visible; });
                 }
-
-                var context1 = (TopicsViewModel) TopicsView.Context;
-                TopicsView.Context = null;
-                dispatcher.Invoke(() => { context1.ProgressBar = Visibility.Visible; });
-                TopicsView.Context = context1;
+                else
+                {
+                    var context1 = (TopicsViewModel) TopicsView.Context;
+                    TopicsView.Context = null;
+                    dispatcher.Invoke(() => { context1.ProgressBar = Visibility.Visible; });
+                    TopicsView.Context = context1;
+                }
 
                 var topicsClient = new MQTTClient();
                 topicsClient.CreateTcpConnection();
-                var connectPacket = new Connect("stkiekilTopics");
+                var clientId = Guid.NewGuid();
+                var connectPacket = new Connect(clientId.ToString());
                 topicsClient.SendObject(connectPacket);
                 var connAck = topicsClient.Receiver.GetConnAck();
                 if (connAck?.Header == null || connAck.Header.Length > 2 || connAck.Header[1] != 0)
@@ -85,10 +88,17 @@ namespace MQTT_GUI.MVVM.Controller
 
                 var disconnect = new Disconnect();
                 topicsClient.SendObject(disconnect);
-                var context2 = (TopicsViewModel) TopicsView.Context;
-                TopicsView.Context = null;
-                dispatcher.Invoke(() => { context2.ProgressBar = Visibility.Hidden; });
-                TopicsView.Context = context2;
+                if (TopicsView.Context == null)
+                {
+                    dispatcher.Invoke(() => { MainWindowViewModel.TopicsViewModel.ProgressBar = Visibility.Hidden; });
+                }
+                else
+                {
+                    var context1 = (TopicsViewModel) TopicsView.Context;
+                    TopicsView.Context = null;
+                    dispatcher.Invoke(() => { context1.ProgressBar = Visibility.Hidden; });
+                    TopicsView.Context = context1;
+                }
                 _alreadyRunning = false;
             }).Start();
         }

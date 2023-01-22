@@ -21,8 +21,9 @@
                    Margin="0 50 0 50"/>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
+                      CanContentScroll="True"
                       Width="400"
-                      Height="350"
+                      Height="450"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center">
             <TreeView x:Name="TreeView"

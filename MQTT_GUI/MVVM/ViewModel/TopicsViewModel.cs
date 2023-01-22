@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
@@ -11,7 +12,17 @@ namespace MQTT_GUI.MVVM.ViewModel
     public class TopicsViewModel : ObservableObject
     {
         private static Visibility _progressBar = Visibility.Hidden;
-        public static ObservableCollection<Topic> Topics { get; } = new ObservableCollection<Topic>();
+        private static BindingList<Topic> _topics = new BindingList<Topic>();
+
+        public BindingList<Topic> Topics
+        {
+            get => _topics;
+            set
+            {
+                _topics = value;
+                OnPropertyChanged();
+            }
+        } 
 
         public Visibility ProgressBar
         {
@@ -19,7 +30,7 @@ namespace MQTT_GUI.MVVM.ViewModel
             set
             {
                 _progressBar = value;
-                OnPropertyChanged("ProgressBar");
+                OnPropertyChanged();
             }
         }
 
@@ -39,13 +50,14 @@ namespace MQTT_GUI.MVVM.ViewModel
         }
     }
 
-    public class Topic
+    public class Topic : ObservableObject
     {
         public string Name { get; }
 
         public Topic(string name)
         {
             Name = name;
+            OnPropertyChanged();
         }
     }
 }

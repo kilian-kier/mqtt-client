@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using MQTT_GUI.Core;
@@ -9,9 +10,19 @@ namespace MQTT_GUI.MVVM.ViewModel
 {
     public class SubscriptionsViewModel : ObservableObject
     {
-        public static ObservableCollection<SubscriptionsViewModel> Roots { get; } = new ObservableCollection<SubscriptionsViewModel>();
+        public static BindingList<SubscriptionsViewModel> Roots { get; } = new BindingList<SubscriptionsViewModel>();
         public string Topic { get; }
-        public string Message { get; set; }        
+        private string _message = "";
+
+        public string Message
+        {
+            get => _message;
+            set
+            {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }        
         public ObservableCollection<SubscriptionsViewModel> Items { get; set; }
 
 
@@ -27,7 +38,7 @@ namespace MQTT_GUI.MVVM.ViewModel
             
         }
 
-        public void AddMessage(string topic, string message, ref SubscriptionsViewModel context)
+        public void AddMessage(string topic, string message)
         {
             var sub = topic.IndexOf('/');
             if (sub == -1)
@@ -52,7 +63,7 @@ namespace MQTT_GUI.MVVM.ViewModel
             else
             {
                 var t = topic.Substring(sub + 1);
-                context.Insert(root, t, message);
+                Insert(root, t, message);
             }
             
             OnPropertyChanged();
