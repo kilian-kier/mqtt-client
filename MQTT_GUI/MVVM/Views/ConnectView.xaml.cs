@@ -110,5 +110,26 @@ namespace MQTT_GUI.MVVM.Views
                 mainWindow.SubscriptionsMenuButton.Visibility = Visibility.Hidden;
             }
         }
+
+        private void IpKeyboard(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            {
+                Dispatcher.BeginInvoke((ThreadStart) delegate
+                {
+                    BrokerPort.Focus();
+                    FocusManager.SetFocusedElement(this, BrokerPort);
+                    Keyboard.Focus(BrokerPort);
+                });
+            }
+        }
+
+        private void IpSetFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb == null) return;            
+            tb.Focusable = true;
+            Keyboard.Focus(tb);
+        }
     }
 }

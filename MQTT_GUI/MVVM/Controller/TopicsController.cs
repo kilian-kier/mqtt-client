@@ -57,8 +57,8 @@ namespace MQTT_GUI.MVVM.Controller
 
                 var ms = 0;
 
-                // searching for 20 seconds
-                while (ms < 20000)
+                // searching for 30 seconds
+                while (ms < 30000)
                 {
                     while (topicsClient.Receiver.SubQueue.Count == 0)
                     {

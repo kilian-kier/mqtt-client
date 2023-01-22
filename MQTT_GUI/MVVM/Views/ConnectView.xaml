@@ -64,14 +64,13 @@
                      HorizontalAlignment="Center"
                      VerticalAlignment="Top"
                      x:Name="BrokerIp"
-                     Text="10.10.30.46"
-                     KeyUp="ButtonConnectEnter"
+                     KeyUp="IpKeyboard"
+                     Loaded="IpSetFocus"
                      Style="{StaticResource IpInput}" />
             <TextBox Grid.Row="1"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Bottom"
                      x:Name="BrokerPort"
-                     Text="1883"
                      KeyUp="ButtonConnectEnter"
                      Style="{StaticResource PortInput}" />
         </Grid>

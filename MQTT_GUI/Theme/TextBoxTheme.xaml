@@ -52,7 +52,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
                             Background="#353340"
-                            Width="80"
+                            Width="200"
                             Height="40">
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
@@ -67,7 +67,7 @@
                                      CaretBrush="White"
                                      x:Name="BrokerPortBox"/>
                             <TextBlock IsHitTestVisible="False"
-                                       Text="Port"
+                                       Text="Port (1883, 8883 ...)"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        FontSize="14"
